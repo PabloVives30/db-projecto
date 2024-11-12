@@ -3,12 +3,12 @@ import pool from "../dbconfig.js";
 const ingresarImpuesto = async (req, res) => {
  try {
         const userId = req.id;
-	const { tipo } = req.body;
+	    const { tipo } = req.body;
 
         if (!userId || !tipo) {
             return res.status(400).json({ error: "Datos faltantes: userId, nroImpuesto o tipo no proporcionados" });
         }
-	const query = 'INSERT INTO impuesto (id_usuario, nroimpuesto, tipo) VALUES ($1, $2, $3) RETURNING *';
+	    const query = 'INSERT INTO impuesto (id_usuario, nroimpuesto, tipo) VALUES ($1, $2, $3) RETURNING *';
         const result = await pool.query(query, [userId, nroImpuesto, tipo]);
 
         res.status(201).json({ success: true, message: "Número de impuesto ingresado correctamente", data: result.rows });

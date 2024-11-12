@@ -3,17 +3,19 @@ import pool from "../dbconfig.js";
 const ingresarSube = async (req, res) => {
     try {
         const userId = req.id;
-        const { nroSube } = req.body;
+        const { nroSube, tipo } = req.body;
 
         console.log("userId:", userId);
         console.log("nroSube:", nroSube);
+        console.log("tipo:", tipo);
+
 
         if (!userId || !nroSube) {
             return res.status(400).json({ error: "Datos faltantes: userId o nroSube no proporcionados" });
         }
 
-        const query = 'INSERT INTO sube (id_usuario, nroSube) VALUES ($1) RETURNING *';
-        const result = await pool.query(query, [nroSube]);
+        const query = 'INSERT INTO sube (id_usuario, "numeroSube", tipo) VALUES ($1, $2, $3) RETURNING *';
+        const result = await pool.query(query, [userId, nroSube, tipo]);
 
         res.json({ success: true, message: "Número de Sube ingresado correctamente", data: result.rows });
     } catch (error) {
@@ -25,7 +27,7 @@ const ingresarSube = async (req, res) => {
 const traersube = async (req, res) => {
     try {
         const userId = req.id;  
-        const query = "SELECT nroSube FROM sube WHERE id = $1";
+        const query = 'SELECT "numeroSube", tipo FROM sube WHERE id_usuario = $1';
         const result = await pool.query(query, [userId]);
 
         res.json(result.rows);
