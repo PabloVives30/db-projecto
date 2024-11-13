@@ -5,7 +5,9 @@ import Usuario from './controllers/Usuario.js';
 import Transferencias from './controllers/Transacciones.js'
 import Sube from './controllers/Sube.js'
 import Impuesto from './controllers/Impuesto.js'
+import Telefono from './controllers/Telefono.js';
 import corsop, { verifyToken } from './middlewares/Usuario.middleware.js';
+
 // import { getSaldo, transferirDinero, getTransacciones } from './controllers/wallet.js';
 
 const app = express();
@@ -43,7 +45,8 @@ app.get("/compartir", verifyToken, Usuario.compartir);
 app.get("/verSaldo", verifyToken, Usuario.verSaldo);
 
 // Funcion Recargar Celular
-
+app.post("/RegistrarTelefono", verifyToken, Telefono.RegistrarTelefono);
+app.get("/verTelefonos", verifyToken, Telefono.verTelefonos);
 
 // Funcion Recargar Sube
 app.post("/ingresarSube", verifyToken, Sube.ingresarSube);
