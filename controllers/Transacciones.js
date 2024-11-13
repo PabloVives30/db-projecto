@@ -178,17 +178,31 @@ catch (error) {
 
 const verTransacciones = async (req, res) => {
     try {
-        const userId = req.id;
-        const query = "SELECT * FROM transacciones WHERE id_user = $1 OR destino = $1 ORDER BY fecha DESC LIMIT 3";
+        const userId = req.id; // Obtener el userId desde el request
+
+        const query = `
+            SELECT 
+                t.fecha, 
+                t.monto, 
+                u2.nombre AS nombre_destino, 
+                u2.apellido AS apellido_destino
+            FROM transacciones t
+            LEFT JOIN perfil u2 ON t.destino = u2.id
+            WHERE t.id_user = $1 OR t.destino = $1
+            ORDER BY t.fecha DESC
+            LIMIT 3;
+        `;
+        
         const result = await pool.query(query, [userId]);
 
-        res.json(result.rows); 
-
+        res.json(result.rows);  // Retorna los resultados de las transacciones
     } catch (error) {
-        console.error("Error al obtener los datos de las transferencias:", error);
-        res.status(500).json({ error: "Error al obtener las transferencias" });
+        console.error("Error al obtener las transacciones:", error);
+        res.status(500).json({ error: "Error al obtener las transacciones" });
     }
 };
+
+
 
 
 const Transferencias = { filtro, transferirDinero, transferirDineroSimulacion, verTransacciones};
