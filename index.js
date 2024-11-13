@@ -48,6 +48,7 @@ app.get("/verSaldo", verifyToken, Usuario.verSaldo);
 // Funcion Recargar Sube
 app.post("/ingresarSube", verifyToken, Sube.ingresarSube);
 app.get("/traerSube", verifyToken, Sube.traersube);
+app.post("/pagarSube", verifyToken, Sube.pagarSube)
 
 // Funcion Pagar Impuestos
 app.post("/ingresarImpuesto", verifyToken, Impuesto.ingresarImpuesto)
