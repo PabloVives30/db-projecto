@@ -47,6 +47,7 @@ app.get("/verSaldo", verifyToken, Usuario.verSaldo);
 // Funcion Recargar Celular
 app.post("/RegistrarTelefono", verifyToken, Telefono.RegistrarTelefono);
 app.get("/verTelefonos", verifyToken, Telefono.verTelefonos);
+app.post("/pagarTelefono", verifyToken, Telefono.pagarTelefono);
 
 // Funcion Recargar Sube
 app.post("/ingresarSube", verifyToken, Sube.ingresarSube);

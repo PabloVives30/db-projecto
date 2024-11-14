@@ -175,11 +175,17 @@ catch (error) {
 }
 }
 */
-
 const verTransacciones = async (req, res) => {
     try {
         const userId = req.id; // Obtener el userId desde el request
+        
+        // Verificar que userId esté presente
+        if (!userId) {
+            return res.status(400).json({ error: "User ID no encontrado en la sesión" });
+        }
 
+        console.log("User ID:", userId); // Verifica que el userId esté presente
+        
         const query = `
             SELECT 
                 t.fecha, 
@@ -201,7 +207,6 @@ const verTransacciones = async (req, res) => {
         res.status(500).json({ error: "Error al obtener las transacciones" });
     }
 };
-
 
 
 
