@@ -210,5 +210,9 @@ const verTransacciones = async (req, res) => {
 
 
 
-const Transferencias = { filtro, transferirDinero, transferirDineroSimulacion, verTransacciones};
+const Transferencias = { 
+    filtro, 
+    transferirDinero, 
+    transferirDineroSimulacion, 
+    verTransacciones};
 export default Transferencias;
